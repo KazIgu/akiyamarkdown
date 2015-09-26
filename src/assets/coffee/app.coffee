@@ -30,3 +30,37 @@ editor.getSession().on 'change', (e) ->
   if e.data.text == "\n"
     range = e.data.range
     beforeText = editor.getSession().getLine range.start.row
+
+editor.commands.addCommand
+  name: 'child'
+  bindKey:
+    mac: 'Shift-Enter'
+  exec: (editor) ->
+    cursor = editor.selection.getCursor()
+    text = editor.getSession().getLine cursor.row
+    indent = text.match /(　)*/g
+    indent = indent[0].length
+    indentText = ""
+    for i in [0...indent]
+      indentText += "　"
+    target = 
+      row: cursor.row
+      column:  text.length
+
+    # title
+    if text.match /【(.*?)】/
+      editor.session.insert target, "\n#{indentText}■"
+
+    # subtitle
+    if text.match /■(.*)/
+      editor.session.insert target, "\n#{indentText}　・"
+
+    # smalltitle
+    if text.match /・(.*)/
+      editor.session.insert target, "\n#{indentText}　→"
+
+    # smalltitle
+    if text.match /→(.*)/
+      editor.session.insert target, "\n#{indentText}→"
+
+editor.focus()
