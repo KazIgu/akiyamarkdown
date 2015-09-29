@@ -33,6 +33,12 @@ module.exports = [
         click: () ->
           saveFile()
       }
+      {
+        label: '名前を付けて保存'
+        accelerator: 'Command+Shift+S'
+        click: () ->
+          saveNewFile()
+      }
     ]
   },
   {
