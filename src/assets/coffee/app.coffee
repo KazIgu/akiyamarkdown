@@ -71,6 +71,10 @@ saveNewFile = () ->
       data = editor.getValue()
       writeFile fileName, data
 
+      $('title').text Path.basename fileName
+      $("#tab#{id}").attr 'data-title', Path.basename fileName
+      $("#tab#{id}").attr 'data-path', fileName
+
 # ----------
 # Close
 # ----------
