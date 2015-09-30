@@ -157,6 +157,7 @@ createEditor = (path) ->
       range = e.data.range
       beforeText = editor.getSession().getLine range.start.row
 
+  # child
   editor.commands.addCommand
     name: 'child'
     bindKey:
@@ -171,7 +172,7 @@ createEditor = (path) ->
         indentText += "　"
       target = 
         row: cursor.row
-        column:  text.length
+        column: text.length
 
       # title
       if text.match /【(.*?)】/
@@ -183,11 +184,117 @@ createEditor = (path) ->
 
       # smalltitle
       if text.match /・(.*)/
-        editor.session.insert target, "\n#{indentText}　→"
+        editor.session.insert target, "\n#{indentText}・"
 
       # smalltitle
       if text.match /→(.*)/
         editor.session.insert target, "\n#{indentText}→"
+
+  # tab
+  editor.commands.addCommand
+    name: 'tab'
+    bindKey:
+      mac: 'Tab'
+    exec: (editor) ->
+      cursor = editor.selection.getCursor()
+      text = editor.getSession().getLine cursor.row
+      target =
+        start:
+          row: cursor.row
+          column: 0
+        end:
+          row: cursor.row
+          column: text.length
+
+      if text.match /・/
+        insertText = text.replace '・', '■'
+        editor.session.replace target, insertText
+
+      if text.match /「/
+        insertText = text.replace '「', '【'
+        editor.session.replace target, "#{insertText}】"
+
+  # space
+  editor.commands.addCommand
+    name: 'space'
+    bindKey:
+      mac: 'Shift-Space'
+    exec: (editor) ->
+      cursor = editor.selection.getCursor()
+      text = editor.getSession().getLine cursor.row
+      target =
+        start:
+          row: cursor.row
+          column: 0
+        end:
+          row: cursor.row
+          column: text.length
+
+      if text.match /・/
+        insertText = text.replace '・', '→'
+        editor.session.replace target, "　#{insertText}"
+
+      if text.match /→/
+        editor.session.replace target, "　#{text}"
+
+  # indent
+  editor.commands.addCommand
+    name: 'indent'
+    bindKey:
+      mac: 'Shift-Option-Enter'
+    exec: (editor) ->
+      cursor = editor.selection.getCursor()
+      text = editor.getSession().getLine cursor.row
+      indent = text.match /(　)*/g
+      indent = indent[0].length
+      indentText = ""
+      for i in [0...indent]
+        indentText += "　"
+      target = 
+        row: cursor.row
+        column: text.length
+
+      editor.session.insert target, "\n　#{indentText}"
+
+  # indent tab
+  editor.commands.addCommand
+    name: 'indent-tab'
+    bindKey:
+      mac: 'Shift-Tab'
+    exec: (editor) ->
+      cursor = editor.selection.getCursor()
+      text = editor.getSession().getLine cursor.row - 1
+      indent = text.match /(　)*/g
+      indent = indent[0].length
+      indentText = ""
+      for i in [0...indent]
+        indentText += "　"
+      target = 
+        row: cursor.row
+        column: 0
+
+      editor.session.insert target, "#{indentText}"
+
+
+  # date
+  editor.commands.addCommand
+    name: 'date'
+    bindKey:
+      mac: 'Command-Shift-D'
+    exec: (editor) ->
+      cursor = editor.selection.getCursor()
+      text = editor.getSession().getLine cursor.row
+      target = 
+        row: cursor.row
+        column: text.length
+      date = new Date()
+      Y = date.getFullYear().toString()
+      M = (date.getMonth() + 1).toString()
+      if M.length == 1
+        M = "0#{M}"
+      D = date.getDate().toString()
+      editor.session.insert target, "#{Y}#{M}#{D}"
+
 
   if path
     # load
