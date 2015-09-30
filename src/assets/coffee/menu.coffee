@@ -1,8 +1,3 @@
-remote = require 'remote'
-dialog = remote.require 'dialog'
-browserWindow = remote.require 'browser-window'
-app = remote.require 'app'
-$ = require 'jquery'
 module.exports = [
   {
     label: 'Akiyamarkdown'
@@ -22,6 +17,12 @@ module.exports = [
     label: 'ファイル'
     submenu: [
       {
+        label: '新規作成'
+        accelerator: 'Command+N'
+        click: () ->
+          createEditor()
+      }
+      {
         label: '開く'
         accelerator: 'Command+O'
         click: () ->
@@ -38,6 +39,12 @@ module.exports = [
         accelerator: 'Command+Shift+S'
         click: () ->
           saveNewFile()
+      }
+      {
+        label: '閉じる'
+        accelerator: 'Command+W'
+        click: () ->
+          closeFile()
       }
     ]
   },
@@ -81,104 +88,38 @@ module.exports = [
         click: () ->
           changeFontSize 'down'
       }
+      {
+        label: '次のタブ'
+        accelerator: 'Command+]'
+        click: () ->
+          nextTab()
+      }
+      {
+        label: '前のタブ'
+        accelerator: 'Command+['
+        click: () ->
+          prevTab()
+      }
     ]
   }
 
-  # {
-  #   label: '開発'
-  #   submenu: [
-  #     {
-  #       label: 'リロード'
-  #       accelerator: 'Command+R'
-  #       click: () ->
-  #         win = browserWindow.getFocusedWindow()
-  #         win.restart()
-  #     }
-  #     {
-  #       label: 'Developer Tools'
-  #       accelerator: 'Shift+Command+C'
-  #       click: () ->
-  #         win = browserWindow.getFocusedWindow()
-  #         win.toggleDevTools()
-  #     }
-  #   ]
-  # }
-]
-
-
-
-CurrentPath = ""
-FontSize = parseInt $('#editor').css "font-size"
-
-openLoadFile = () ->
-  win = browserWindow.getFocusedWindow()
-  dialog.showOpenDialog win,
-    properties: ['openFile']
-    filters: [
-      name: 'Documents'
-      extensions: ['amd']
+  {
+    label: '開発'
+    submenu: [
+      {
+        label: 'リロード'
+        accelerator: 'Command+R'
+        click: () ->
+          win = browserWindow.getFocusedWindow()
+          win.restart()
+      }
+      {
+        label: 'Developer Tools'
+        accelerator: 'Shift+Command+C'
+        click: () ->
+          win = browserWindow.getFocusedWindow()
+          win.toggleDevTools()
+      }
     ]
-  , (filenames) ->
-    if (filenames)
-      loadFile filenames[0]
-
-loadFile = (path) ->
-  CurrentPath = path
-  fs.readFile path, (error, text) ->
-    if error != null
-      alert "error : #{error}"
-      return
-    $('title').text CurrentPath
-    editor.setValue text.toString(), -1
-
-
-
-
-saveFile = () ->
-  if CurrentPath == ""
-    saveNewFile()
-    return
-
-  win = browserWindow.getFocusedWindow()
-
-  dialog.showMessageBox win,
-      title: '上書きするぜー'
-      type: 'info'
-      buttons: ['OK', 'Cancel']
-      detail: """
-        #{CurrentPath}を上書いちゃうぜー
-      """
-    , (respnse) ->
-      if respnse == 0
-        data = editor.getValue()
-        writeFile CurrentPath, data
-
-writeFile = (path, data) ->
-  fs.writeFile path, data, (error) ->
-    if error != null
-      alert "error : #{error}"
-
-saveNewFile = () ->
-  win = browserWindow.getFocusedWindow()
-  dialog.showSaveDialog win,
-      properties: ['openFile']
-      filters: [
-          name: 'Documents'
-          extensions: ['txt', 'text', 'html', 'js']
-      ]
-    , (fileName) ->
-      if fileName
-        data = editor.getValue()
-        currentPath = fileName
-        writeFile currentPath, data
-
-
-changeFontSize = (type) ->
-  if type == "up"
-    FontSize++
-  else if type == "down"
-    FontSize--
-
-  $('#editor').css
-    "font-size": "#{FontSize}px"
-
+  }
+]

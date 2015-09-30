@@ -41,6 +41,7 @@
   "dependencies": {
     "ace-min-noconflict": "^1.1.9",
     "coffee-script": "^1.9.2",
-    "electron-prebuilt": "^0.33.0"
+    "electron-prebuilt": "^0.33.0",
+    "path": "^0.12.7"
   }
 }
