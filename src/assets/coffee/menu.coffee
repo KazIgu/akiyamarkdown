@@ -103,23 +103,23 @@ module.exports = [
     ]
   }
 
-  {
-    label: '開発'
-    submenu: [
-      {
-        label: 'リロード'
-        accelerator: 'Command+R'
-        click: () ->
-          win = browserWindow.getFocusedWindow()
-          win.restart()
-      }
-      {
-        label: 'Developer Tools'
-        accelerator: 'Shift+Command+C'
-        click: () ->
-          win = browserWindow.getFocusedWindow()
-          win.toggleDevTools()
-      }
-    ]
-  }
+  # {
+  #   label: '開発'
+  #   submenu: [
+  #     {
+  #       label: 'リロード'
+  #       accelerator: 'Command+R'
+  #       click: () ->
+  #         win = browserWindow.getFocusedWindow()
+  #         win.restart()
+  #     }
+  #     {
+  #       label: 'Developer Tools'
+  #       accelerator: 'Shift+Command+C'
+  #       click: () ->
+  #         win = browserWindow.getFocusedWindow()
+  #         win.toggleDevTools()
+  #     }
+  #   ]
+  # }
 ]
