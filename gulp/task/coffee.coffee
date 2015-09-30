@@ -1,6 +1,5 @@
 # gulp = require 'gulp'
 # buffer = require 'vinyl-buffer'
-# uglify = require 'gulp-uglify'
 # source = require 'vinyl-source-stream'
 # browserify = require 'browserify'
 # watchify = require 'watchify'
@@ -48,10 +47,12 @@
 
 gulp = require 'gulp'
 coffee = require 'gulp-coffee'
+uglify = require 'gulp-uglify'
 path = require('../config').path
 
 gulp.task "coffee", ->
   gulp.src "#{path.src.coffee}/**/*.coffee"
     .pipe coffee
       bare: true
+    .pipe uglify()
     .pipe gulp.dest "#{path.dest.js}"

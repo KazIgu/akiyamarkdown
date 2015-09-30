@@ -6,8 +6,8 @@ dir = requireDir './gulp/task'
 gulp.task 'default', (callback) ->
   return runSequence(
     'clean',
-    ['jade', 'main', 'coffee', 'stylus', 'image'],
+    ['jade', 'main', 'coffee', 'stylus', 'image', 'vendor'],
     callback
     )
 
-gulp.task 'develop', ['default', 'watch', 'server']
+gulp.task 'develop', ['default', 'watch']

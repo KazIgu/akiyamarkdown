@@ -13,6 +13,9 @@ gulp.task 'watch', () ->
   watch ["#{path.src.coffee}/**/*.coffee"], () ->
     gulp.start 'coffee'
 
+  watch ["#{path.src.vendor}/**/*"], () ->
+    gulp.start 'vendor'
+
   watch ["#{path.src.data}/**/*.json"], () ->
     gulp.start 'mock'
 

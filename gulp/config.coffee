@@ -5,6 +5,7 @@ path =
     coffee: './src/assets/coffee'
     image: './src/assets/image'
     font: './src/assets/font'
+    vendor: './src/assets/vendor'
     data: './data'
 
   dest:
@@ -13,6 +14,7 @@ path =
     js: './dest/assets/javascripts'
     image: './dest/assets/images'
     font: './dest/assets/fonts'
+    vendor: './dest/assets/vendor'
     data: './dest/data'
 
 

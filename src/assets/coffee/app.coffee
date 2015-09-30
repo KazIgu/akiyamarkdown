@@ -8,8 +8,9 @@ app = remote.require 'app'
 fs = require 'fs'
 Path = require 'path'
 $ = require 'jquery'
-require 'ace-min-noconflict'
-require 'ace-min-noconflict/theme-monokai'
+require './assets/vendor/src-noconflict/ace.js'
+# require 'ace-min-noconflict'
+require './assets/vendor/src-noconflict/theme-monokai'
 require './assets/javascripts/syntax'
 
 # -------------------------
@@ -152,11 +153,7 @@ createEditor = (path) ->
   editor.getSession().setOptions
    useSoftTabs: false
   editor.getSession().setTabSize(2)
-  editor.getSession().on 'change', (e) ->
-    if e.data.text == "\n"
-      range = e.data.range
-      beforeText = editor.getSession().getLine range.start.row
-
+  editor.$blockScrolling = Infinity
   # child
   editor.commands.addCommand
     name: 'child'
