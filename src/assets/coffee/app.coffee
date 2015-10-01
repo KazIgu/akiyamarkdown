@@ -383,5 +383,27 @@ changeFontSize = (type) ->
 
 
 
+# --------------------
+# file drag and drop
+# --------------------
+document.ondragover =  (e) ->
+  e.preventDefault()
+  return false
+document.ondrop = (e) ->
+  e.preventDefault()
+  createEditor e.dataTransfer.files[0].path
+  return false
+
+# --------------------
+# dock
+# --------------------
+app.on 'open-file', (e, path) ->
+  e.preventDefault()
+  createEditor path
+  remote.getCurrentWindow().focus()
 
 
+# --------------------
+# init
+# --------------------
+createEditor remote.getGlobal('path')

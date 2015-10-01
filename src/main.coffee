@@ -15,7 +15,11 @@ app.on 'ready', () ->
     width: 1024
     height: 768
   mainWindow.loadUrl "file://#{__dirname}/index.html"
-
+  mainWindow.focus()
   mainWindow.on 'closed', () ->
     mainWindow = null
     return
+
+app.on 'open-file', (e, path) ->
+  e.preventDefault()
+  global['path'] = path
