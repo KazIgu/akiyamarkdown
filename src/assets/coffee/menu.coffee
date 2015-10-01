@@ -100,6 +100,12 @@ module.exports = [
         click: () ->
           prevTab()
       }
+      {
+        label: 'マークダウンに変換'
+        accelerator: 'Command+M'
+        click: () ->
+          convertAmd2Md()
+      }
     ]
   }
 

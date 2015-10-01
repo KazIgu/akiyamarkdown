@@ -381,7 +381,7 @@ changeFontSize = (type) ->
   $('#editor').css
     "font-size": "#{FontSize}px"
 
-
+convertAmd2Md = require './assets/javascripts/amd2md'
 
 # --------------------
 # file drag and drop
