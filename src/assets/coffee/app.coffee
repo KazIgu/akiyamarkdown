@@ -145,6 +145,7 @@ createEditor = (path) ->
   $editor.append $content
 
   editor = ace.edit("editor#{id}")
+  editor.setShowInvisibles(true)
 
   Editors.push id.toString()
 
@@ -154,6 +155,8 @@ createEditor = (path) ->
    useSoftTabs: false
   editor.getSession().setTabSize(2)
   editor.$blockScrolling = Infinity
+
+
   # child
   editor.commands.addCommand
     name: 'child'
@@ -177,7 +180,7 @@ createEditor = (path) ->
 
       # subtitle
       if text.match /■(.*)/
-        editor.session.insert target, "\n#{indentText}　・"
+        editor.session.insert target, "\n#{indentText}・"
 
       # smalltitle
       if text.match /・(.*)/

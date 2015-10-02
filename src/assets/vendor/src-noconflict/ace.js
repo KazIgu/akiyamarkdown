@@ -13685,6 +13685,14 @@ var Text = function(parentEl) {
     this.EOL_CHAR = this.EOL_CHAR_LF;
     this.TAB_CHAR = "\u2014"; //"\u21E5";
     this.SPACE_CHAR = "\xB7";
+
+    this.EOF_CHAR = "";
+    this.EOL_CHAR_LF = "";
+    this.EOL_CHAR_CRLF = "";
+    this.EOL_CHAR = this.EOL_CHAR_LF;
+    this.TAB_CHAR = "\u2014"; //"\u21E5";
+    this.SPACE_CHAR = "\xB7";
+
     this.$padding = 0;
 
     this.$updateEolChar = function() {
