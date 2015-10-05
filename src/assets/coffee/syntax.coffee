@@ -14,7 +14,7 @@ ace.define 'ace/mode/amd_highlight_rules', [
   oop = require('../lib/oop')
   TextHighlightRules = require('./text_highlight_rules').TextHighlightRules
 
-  SampleHighlightRules = ->
+  AmdHighlightRules = ->
     varWordMapper = @createKeywordMapper({}, 'invalid', false, ' ')
     @$rules =
       'start': [
@@ -37,8 +37,8 @@ ace.define 'ace/mode/amd_highlight_rules', [
       ]
     return
 
-  oop.inherits SampleHighlightRules, TextHighlightRules
-  exports.SampleHighlightRules = SampleHighlightRules
+  oop.inherits AmdHighlightRules, TextHighlightRules
+  exports.AmdHighlightRules = AmdHighlightRules
   return
 
 ###***************************
@@ -58,9 +58,9 @@ ace.define 'ace/mode/matching_brace_outdent', [
 ###***************************
 #      Modeの定義
 #      1.  先頭の define でmode/amdを定義
-#      2.  `var SampleHighlightRules = require("./amd_highlight_rules").SampleHighlightRules;`
+#      2.  `var AmdHighlightRules = require("./amd_highlight_rules").AmdHighlightRules;`
 #          の用にRuleを読み込む
-#      3.  `this.HighlightRules = SampleHighlightRules;` Modeに代入
+#      3.  `this.HighlightRules = AmdHighlightRules;` Modeに代入
 # ***************************
 ###
 
@@ -78,14 +78,14 @@ ace.define 'ace/mode/amd', [
   oop = require('../lib/oop')
   TextMode = require('./text').Mode
   # Rule読み込み
-  SampleHighlightRules = require('./amd_highlight_rules').SampleHighlightRules
+  AmdHighlightRules = require('./amd_highlight_rules').AmdHighlightRules
 
   #var MatchingBraceOutdent = require("./matching_brace_outdent").MatchingBraceOutdent;
   Range = require('../range').Range
   WorkerClient = require('../worker/worker_client').WorkerClient
 
   Mode = ->
-    @HighlightRules = SampleHighlightRules
+    @HighlightRules = AmdHighlightRules
     return
 
   oop.inherits Mode, TextMode

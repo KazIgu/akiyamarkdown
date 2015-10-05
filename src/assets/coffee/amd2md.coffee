@@ -1,6 +1,4 @@
 Amd2Md = () ->
-  console.log 'amd2md'
-
   if Editors.length == 0
     return
 
@@ -39,6 +37,7 @@ Amd2Md = () ->
   ace.edit("editor#{ID}").setValue md, -1
 
   return
+
 
 
 module.exports = Amd2Md

@@ -969,7 +969,7 @@ exports.createElement = function(tag, ns) {
 };
 
 exports.hasCssClass = function(el, name) {
-    var classes = (el.className || "").split(/\s+/g);
+    var classes = (el.className || "").split(/( )+/g);
     return classes.indexOf(name) !== -1;
 };
 exports.addCssClass = function(el, name) {
@@ -978,7 +978,7 @@ exports.addCssClass = function(el, name) {
     }
 };
 exports.removeCssClass = function(el, name) {
-    var classes = el.className.split(/\s+/g);
+    var classes = el.className.split(/( )+/g);
     while (true) {
         var index = classes.indexOf(name);
         if (index == -1) {
@@ -990,7 +990,7 @@ exports.removeCssClass = function(el, name) {
 };
 
 exports.toggleCssClass = function(el, name) {
-    var classes = el.className.split(/\s+/g), add = true;
+    var classes = el.className.split(/( )+/g), add = true;
     while (true) {
         var index = classes.indexOf(name);
         if (index == -1) {
@@ -1762,8 +1762,8 @@ exports.stringRepeat = function (string, count) {
     return result;
 };
 
-var trimBeginRegexp = /^\s\s*/;
-var trimEndRegexp = /\s\s*$/;
+var trimBeginRegexp = /^( )*/;
+var trimEndRegexp = /( )*$/;
 
 exports.stringTrimLeft = function (string) {
     return string.replace(trimBeginRegexp, '');
@@ -4633,7 +4633,7 @@ var Selection = function(session) {
             firstColumnPosition.column
         );
 
-        var leadingSpace = beforeCursor.match(/^\s*/);
+        var leadingSpace = beforeCursor.match(/^( )*/);
         if (leadingSpace[0].length != column && !this.session.$useEmacsStyleLineStart)
             firstColumnPosition.column += leadingSpace[0].length;
         this.moveCursorToPosition(firstColumnPosition);
@@ -4644,7 +4644,7 @@ var Selection = function(session) {
         if (this.lead.column == lineEnd.column) {
             var line = this.session.getLine(lineEnd.row);
             if (lineEnd.column == line.length) {
-                var textEnd = line.search(/\s+$/);
+                var textEnd = line.search(/( )+$/);
                 if (textEnd > 0)
                     lineEnd.column = textEnd;
             }
@@ -4733,7 +4733,7 @@ var Selection = function(session) {
 
     this.$shortWordEndIndex = function(rightOfCursor) {
         var match, index = 0, ch;
-        var whitespaceRe = /\s/;
+        var whitespaceRe = /( )/;
         var tokenRe = this.session.tokenRe;
 
         tokenRe.lastIndex = 0;
@@ -4782,9 +4782,9 @@ var Selection = function(session) {
             do {
                 row++;
                 rightOfCursor = this.doc.getLine(row);
-            } while (row < l && /^\s*$/.test(rightOfCursor));
+            } while (row < l && /^( )*$/.test(rightOfCursor));
 
-            if (!/^\s+/.test(rightOfCursor))
+            if (!/^( )+/.test(rightOfCursor))
                 rightOfCursor = "";
             column = 0;
         }
@@ -4807,10 +4807,10 @@ var Selection = function(session) {
             do {
                 row--;
                 line = this.doc.getLine(row);
-            } while (row > 0 && /^\s*$/.test(line));
+            } while (row > 0 && /^( )*$/.test(line));
 
             column = line.length;
-            if (!/\s+$/.test(line))
+            if (!/( )+$/.test(line))
                 line = "";
         }
 
@@ -5689,7 +5689,7 @@ var Mode = function() {
         + unicode.packages.L
         + unicode.packages.Mn + unicode.packages.Mc
         + unicode.packages.Nd
-        + unicode.packages.Pc + "\\$_]|\\s])+", "g"
+        + unicode.packages.Pc + "\\$_]|\( )])+", "g"
     );
 
     this.getTokenizer = function() {
@@ -5717,8 +5717,8 @@ var Mode = function() {
                 return false;
             var lineCommentStart = this.blockComment.start;
             var lineCommentEnd = this.blockComment.end;
-            var regexpStart = new RegExp("^(\\s*)(?:" + lang.escapeRegExp(lineCommentStart) + ")");
-            var regexpEnd = new RegExp("(?:" + lang.escapeRegExp(lineCommentEnd) + ")\\s*$");
+            var regexpStart = new RegExp("^(\( )*)(?:" + lang.escapeRegExp(lineCommentStart) + ")");
+            var regexpEnd = new RegExp("(?:" + lang.escapeRegExp(lineCommentEnd) + ")\( )*$");
 
             var comment = function(line, i) {
                 if (testRemove(line, i))
@@ -5754,7 +5754,7 @@ var Mode = function() {
                 var regexpStart = lang.escapeRegExp(this.lineCommentStart);
                 var lineCommentStart = this.lineCommentStart;
             }
-            regexpStart = new RegExp("^(\\s*)(?:" + regexpStart + ") ?");
+            regexpStart = new RegExp("^(\( )*)(?:" + regexpStart + ") ?");
             
             insertAtTabStop = session.getUseSoftTabs();
 
@@ -5898,7 +5898,7 @@ var Mode = function() {
     };
 
     this.$getIndent = function(line) {
-        return line.match(/^\s*/)[0];
+        return line.match(/^( )*/)[0];
     };
 
     this.createWorker = function(session) {
@@ -8603,8 +8603,8 @@ var EditSession = function(text, mode) {
 
         if (inToken)
             var re = this.tokenRe;
-        else if (/^\s+$/.test(line.slice(column-1, column+1)))
-            var re = /\s/;
+        else if (/^( )+$/.test(line.slice(column-1, column+1)))
+            var re = /( )/;
         else
             var re = this.nonTokenRe;
 
@@ -10324,7 +10324,7 @@ MultiHashHandler.prototype = HashHandler.prototype;
         key.split("|").forEach(function(keyPart) {
             var chain = "";
             if (keyPart.indexOf(" ") != -1) {
-                var parts = keyPart.split(/\s+/);
+                var parts = keyPart.split(/( )+/);
                 keyPart = parts.pop();
                 parts.forEach(function(keyPart) {
                     var binding = this.parseKeys(keyPart);
@@ -11206,7 +11206,7 @@ exports.commands = [{
         var selectionEnd = isBackwards ? editor.selection.getSelectionAnchor() : editor.selection.getSelectionLead();
         var firstLineEndCol = editor.session.doc.getLine(selectionStart.row).length;
         var selectedText = editor.session.doc.getTextRange(editor.selection.getRange());
-        var selectedCount = selectedText.replace(/\n\s*/, " ").length;
+        var selectedCount = selectedText.replace(/\n( )*/, " ").length;
         var insertLine = editor.session.doc.getLine(selectionStart.row);
 
         for (var i = selectionStart.row + 1; i <= selectionEnd.row + 1; i++) {
@@ -11433,7 +11433,7 @@ var Editor = function(renderer, session) {
 
             shouldMerge = shouldMerge
                 && this.mergeNextCommand // previous command allows to coalesce with
-                && (!/\s/.test(text) || /\s/.test(prev.args)); // previous insertion was of same type
+                && (!/( )/.test(text) || /( )/.test(prev.args)); // previous insertion was of same type
 
             this.mergeNextCommand = true;
         } else {
@@ -12169,7 +12169,7 @@ var Editor = function(renderer, session) {
                 var text = session.getTextRange(range);
                 if (text[text.length - 1] == "\n") {
                     var line = session.getLine(range.end.row);
-                    if (/^\s+$/.test(line)) {
+                    if (/^( )+$/.test(line)) {
                         range.end.column = line.length;
                     }
                 }
@@ -12279,7 +12279,7 @@ var Editor = function(renderer, session) {
             return;
         } else if (range.start.column < range.end.column) {
             var text = session.getTextRange(range);
-            if (!/^\s+$/.test(text)) {
+            if (!/^( )+$/.test(text)) {
                 var rows = this.$getSelectedRows();
                 session.indentRows(rows.first, rows.last, "\t");
                 return;
@@ -13774,7 +13774,7 @@ var Text = function(parentEl) {
             }
         }
         if (this.displayIndentGuides) {
-            this.$indentGuideRe =  /\s\S| \t|\t |\s$/;
+            this.$indentGuideRe =  /( )\S| \t|\t |( )$/;
             var className = "ace_indent-guide";
             var spaceClass = "";
             var tabClass = "";
@@ -17663,7 +17663,7 @@ var Editor = require("./editor").Editor;
         var startW, textW, endW;
 
         return lines.map(function(line) {
-            var m = line.match(/(\s*)(.*?)(\s*)([=:].*)/);
+            var m = line.match(/(( )*)(.*?)(( )*)([=:].*)/);
             if (!m)
                 return [line];
 
@@ -17697,17 +17697,17 @@ var Editor = require("./editor").Editor;
         function alignLeft(m) {
             return !m[2] ? m[0] : spaces(startW) + m[2]
                 + spaces(textW - m[2].length + endW)
-                + m[4].replace(/^([=:])\s+/, "$1 ");
+                + m[4].replace(/^([=:])( )+/, "$1 ");
         }
         function alignRight(m) {
             return !m[2] ? m[0] : spaces(startW + textW - m[2].length) + m[2]
                 + spaces(endW, " ")
-                + m[4].replace(/^([=:])\s+/, "$1 ");
+                + m[4].replace(/^([=:])( )+/, "$1 ");
         }
         function unAlign(m) {
             return !m[2] ? m[0] : spaces(startW) + m[2]
                 + spaces(endW)
-                + m[4].replace(/^([=:])\s+/, "$1 ");
+                + m[4].replace(/^([=:])( )+/, "$1 ");
         }
     };
 }).call(Editor.prototype);

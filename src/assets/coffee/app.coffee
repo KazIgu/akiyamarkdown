@@ -179,17 +179,19 @@ createEditor = (path) ->
         editor.session.insert target, "\n#{indentText}■"
 
       # subtitle
-      if text.match /■(.*)/
+      else if text.match /■(.*)/
         editor.session.insert target, "\n#{indentText}・"
 
       # smalltitle
-      if text.match /・(.*)/
+      else if text.match /・(.*)/
         editor.session.insert target, "\n#{indentText}・"
 
       # smalltitle
-      if text.match /→(.*)/
+      else if text.match /→(.*)/
         editor.session.insert target, "\n#{indentText}→"
 
+      else
+        editor.session.insert target, "\n#{indentText}"
   # tab
   editor.commands.addCommand
     name: 'tab'
@@ -241,7 +243,7 @@ createEditor = (path) ->
   editor.commands.addCommand
     name: 'indent'
     bindKey:
-      mac: 'Shift-Option-Enter'
+      mac: 'Command-Option-Enter'
     exec: (editor) ->
       cursor = editor.selection.getCursor()
       text = editor.getSession().getLine cursor.row
@@ -385,6 +387,7 @@ changeFontSize = (type) ->
     "font-size": "#{FontSize}px"
 
 convertAmd2Md = require './assets/javascripts/amd2md'
+convertMd2Amd = require './assets/javascripts/md2amd'
 
 # --------------------
 # file drag and drop

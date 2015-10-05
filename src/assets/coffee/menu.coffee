@@ -106,6 +106,12 @@ module.exports = [
         click: () ->
           convertAmd2Md()
       }
+      {
+        label: 'マークダウンに変換'
+        accelerator: 'Command+Shift+M'
+        click: () ->
+          convertMd2Amd()
+      }
     ]
   }
 
