@@ -64,12 +64,14 @@ module.exports = [
       {
         label: 'コピー'
         accelerator: 'Command+C'
-        role: 'copy'
+        click: () ->
+          copy()
       }
       {
         label: '貼り付け'
         accelerator: 'Command+V'
-        role: 'paste'
+        click: () ->
+          paste()
       }
     ]
   }

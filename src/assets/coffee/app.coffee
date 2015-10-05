@@ -13,6 +13,8 @@ require './assets/vendor/src-noconflict/ace.js'
 require './assets/vendor/src-noconflict/theme-monokai'
 require './assets/javascripts/syntax'
 
+Clipboard = require 'clipboard'
+
 # -------------------------
 # Menu
 # -------------------------
@@ -388,6 +390,22 @@ changeFontSize = (type) ->
 
 convertAmd2Md = require './assets/javascripts/amd2md'
 convertMd2Amd = require './assets/javascripts/md2amd'
+
+copy = () ->
+  id = ID
+  editor = ace.edit("editor#{id}")
+  texts = editor.getSelectedText() || ''
+
+  Clipboard.writeText texts
+
+paste = () ->
+  id = ID
+  editor = ace.edit("editor#{id}")
+  target = editor.selection.getCursor()
+  texts = Clipboard.readText()
+
+  editor.session.insert target, texts
+
 
 # --------------------
 # file drag and drop
