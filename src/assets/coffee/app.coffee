@@ -297,6 +297,8 @@ createEditor = (path) ->
       if M.length == 1
         M = "0#{M}"
       D = date.getDate().toString()
+      if D.length == 1
+        D = "0#{D}"
       editor.session.insert target, "#{Y}#{M}#{D}"
 
 
