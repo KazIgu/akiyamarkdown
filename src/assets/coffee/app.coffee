@@ -398,6 +398,15 @@ copy = () ->
 
   Clipboard.writeText texts
 
+cut = () ->
+  id = ID
+  editor = ace.edit("editor#{id}")
+  texts = editor.getSelectedText() || ''
+  target = editor.selection.getRange()
+
+  editor.session.remove target
+  Clipboard.writeText texts
+
 paste = () ->
   id = ID
   editor = ace.edit("editor#{id}")

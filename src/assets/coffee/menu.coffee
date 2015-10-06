@@ -62,6 +62,12 @@ module.exports = [
         role: 'redo'
       }
       {
+        label: '切り取り'
+        accelerator: 'Command+X'
+        click: () ->
+          cut()
+      }
+      {
         label: 'コピー'
         accelerator: 'Command+C'
         click: () ->
