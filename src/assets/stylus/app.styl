@@ -71,6 +71,8 @@ html, body
   &.is-active
     z-index 99999
 
+// .ace_print-margin-layer
+//   display none
 .ace-monokai
   .ace_title
     color #f92672
@@ -83,3 +85,37 @@ html, body
 
   .ace_indent
     color #aaaaaa
+
+.mermaid
+  position absolute
+  top 0
+  right 0
+  z-index 1
+  width 50%
+  height 100%
+  overflow scroll 
+  border-left 1px solid #aaa
+  background #555
+/* Flowchart variables */
+/* Sequence Diagram variables */
+/* Gantt chart variables */
+.mermaid .label
+  color #333333
+
+.node rect
+  fill #ececff
+  stroke #ccccff
+  stroke-width 1px
+.node circle
+  fill none
+  stroke none
+.node polygon
+  fill #ececff
+  stroke #ccccff
+  stroke-width 1px
+
+.edgePath
+  .path
+    stroke: #aaa !important
+  defs
+    display none

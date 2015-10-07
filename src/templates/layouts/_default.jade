@@ -11,8 +11,6 @@ html(lang="ja")
     meta(name="keywords", content="#{keywords || 'default keywords'}")
     meta(name="description", content="#{description || 'default description'}")
 
-    link(href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css')
-    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
     link(href="./assets/stylesheets/app.css", rel="stylesheet")
 
     //- Include template-specific stylesheets by extending the css block
@@ -25,6 +23,6 @@ html(lang="ja")
       block content
 
     //- JAVASCRIPT
-    //- script(src="http://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js")
+    script(type="text/javascript" src="./assets/vendor/mermaid.min.js")
     script(src='./assets/javascripts/app.js')
     block js

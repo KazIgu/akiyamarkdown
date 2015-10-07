@@ -120,6 +120,12 @@ module.exports = [
         click: () ->
           convertMd2Amd()
       }
+      {
+        label: 'フローチャートに変換'
+        accelerator: 'Command+Shift+T'
+        click: () ->
+          convertAmd2Tree()
+      }
     ]
   }
 

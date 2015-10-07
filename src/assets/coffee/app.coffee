@@ -157,7 +157,7 @@ createEditor = (path) ->
    useSoftTabs: false
   editor.getSession().setTabSize(2)
   editor.$blockScrolling = Infinity
-
+  editor.setShowPrintMargin false
 
   # child
   editor.commands.addCommand
@@ -392,6 +392,8 @@ changeFontSize = (type) ->
 
 convertAmd2Md = require './assets/javascripts/amd2md'
 convertMd2Amd = require './assets/javascripts/md2amd'
+convertAmd2Tree = require './assets/javascripts/amd2tree'
+
 
 copy = () ->
   id = ID
