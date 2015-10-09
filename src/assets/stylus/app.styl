@@ -86,6 +86,90 @@ html, body
   .ace_indent
     color #aaaaaa
 
+  .ace_marker-layer
+    .ace_selection
+      background #636154
+    .ace_selected-word
+      background alpha(blue, 0.5)
+
+.ace_search
+  background-color #333
+  overflow hidden
+  margin 0
+  position absolute
+  bottom 0
+  z-index 99
+  left 0
+  white-space normal
+  width 100%
+  padding 20px
+  box-sizing border-box
+  &__close
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAcCAYAAABRVo5BAAAAZ0lEQVR42u2SUQrAMAhDvazn8OjZBilCkYVVxiis8H4CT0VrAJb4WHT3C5xU2a2IQZXJjiQIRMdkEoJ5Q2yMqpfDIo+XY4k6h+YXOyKqTIj5REaxloNAd0xiKmAtsTHqW8sR2W5f7gCu5nWFUpVjZwAAAABJRU5ErkJggg==') no-repeat 50% 0
+    border-radius: 50%
+    border: 0 none
+    color: #656565
+    cursor: pointer
+    float: right
+    font: 16px/16px Arial
+    height: 14px
+    margin: 5px 1px 9px 5px
+    padding: 0
+    text-align: center
+    width: 14px
+    position absolute
+    top 10px
+    right 10px
+  &__item
+    overflow hidden
+    display table
+    width 100%
+    margin-top 20px
+    &:first-of-type
+      margin-top 0
+    &__field
+      display table-cell
+      input
+        background-color #222
+        border 1px solid #222
+        height 32px
+        outline 0
+        padding 0 7px
+        width 100%
+        margin 0
+        box-sizing border-box
+    &.ace_nomatch &__field
+      input
+        border 1px solid red
+
+    &__buttons
+      display table-cell
+      width 220px
+      vertical-align middle
+      input, button
+        background #333
+        border 0 none
+        cursor pointer
+        float left
+        height 22px
+        margin 0 20px
+        padding 0
+        position relative
+        &.prev
+          &:before
+            content 'Prev'
+        &.next
+          &:before
+            content 'Next'
+
+.ace_search_options
+  margin-bottom: 3px
+  text-align: right
+  user-select: none
+  display none
+
+
+
 .mermaid
   position absolute
   top 0
@@ -96,6 +180,7 @@ html, body
   overflow scroll 
   border-left 1px solid #aaa
   background #555
+
 /* Flowchart variables */
 /* Sequence Diagram variables */
 /* Gantt chart variables */

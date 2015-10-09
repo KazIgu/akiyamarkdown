@@ -12,7 +12,7 @@ require './assets/vendor/src-noconflict/ace.js'
 # require 'ace-min-noconflict'
 require './assets/vendor/src-noconflict/theme-monokai'
 require './assets/javascripts/syntax'
-
+require './assets/vendor/src-noconflict/ext-searchbox.js'
 Clipboard = require 'clipboard'
 
 # -------------------------
