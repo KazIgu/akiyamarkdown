@@ -55,15 +55,15 @@ Amd2Tree = () ->
 
     $mermaid = $("<div id='mermaid#{id}' class='mermaid'/>")
 
+    if !$editor.find('.mermaid').length
+      $editor.append $mermaid
+
+      mermaidAPI.initialize
+        startOnLoad: false
+        flowchart:
+          useMaxWidth: false
+
     if tree.replace("graph LR\n", '').length > 0
-      if !$editor.find('.mermaid').length
-        $editor.append $mermaid
-
-        mermaidAPI.initialize
-          startOnLoad: false
-          flowchart:
-            useMaxWidth: false
-
       mermaidAPI.render "mermaidRender#{Date.now().toString()}", tree, (html) ->
         $("#mermaid#{id}").html html
 
